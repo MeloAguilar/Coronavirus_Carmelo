@@ -1,0 +1,60 @@
+﻿@model UI.Models.Index_VM
+
+
+<div class="text-center">
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                        Pregunta
+                    </td>
+                    <td>
+                        Respuesta
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+                @for (int i = 0; i < @Model.preguntas.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => @Model.preguntas[i].Pregunta)
+                        </td>
+                        @for (int j = 0; j < @Model.respuestas.Count; j++)
+                        {
+                            @if (Model.respuestas[j].IdPregunta == Model.preguntas[i].IdPregunta)
+                            {
+                                @if (Model.preguntas[i].IdPregunta == 2)
+                                {
+                                    <td>
+                                        <input type="radio" name="respuestas[j].IdRespuesta" value="Entre 37º y 38º" /> Entre 37º y 38º<br>
+                                        <input type="radio" name="respuestas[j].IdRespuesta" value="> 38º" />> 38º<br>
+                                        <input type="radio" name="respuestas[j].IdRespuesta" value="No" />No
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td>
+
+                                        <input type="checkbox" name="respuestas[j].IdRespuesta" value="Si" />
+                                    </td>
+                                }
+                            }
+
+                        }
+                    </tr>
+                }
+
+
+
+
+            </tbody>
+        </table>
+        <input type="submit" value="Finalizar" class="btn btn-success" />
+    </form>
+</div>
