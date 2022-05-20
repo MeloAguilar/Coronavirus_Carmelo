@@ -6,27 +6,28 @@ namespace Entities
     {
 
         [Required(ErrorMessage = "El Dni es un campo obligatorio")]
-        public int DniPersona { get; set; }
+        public string DniPersona { get; set; }
 
         [MaxLength(20), Required(ErrorMessage = "Debe introducir su nombre")]
         public string NombrePersona { get; set; }
 
         [MaxLength(50), Required(ErrorMessage = "Debe introducir sus apellidos")]
         public string  ApellidosPersona { get; set; }
-        [MaxLength(12)]
+        [MaxLength(12), Required(ErrorMessage = "Tu número de telefono es imprescindible para contactar contigo")]
         public string Telefono { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(100), Required(ErrorMessage = "Debes introducir tu dirección.")]
         public string Direccion { get; set; }
 
         public bool Diagnostico { get; set; }
         public clsPersona() { }
 
-        public clsPersona(int dniPersona, string nombrePersona, string apellidosPersona)
+        public clsPersona(string dniPersona, string nombrePersona, string apellidosPersona)
         {
             DniPersona=dniPersona;
             NombrePersona=nombrePersona;
             ApellidosPersona=apellidosPersona;
+            Diagnostico = false;
         }
     }
 }

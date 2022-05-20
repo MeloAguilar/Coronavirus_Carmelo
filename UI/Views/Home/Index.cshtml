@@ -1,8 +1,9 @@
 ﻿@model UI.Models.Index_VM
 
 
-<div class="text-center">
-    <form method="post">
+<div class="form-group">
+    <form asp-action="Index">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <table class="table">
             <thead>
                 <tr>
@@ -26,22 +27,37 @@
                         </td>
                         @for (int j = 0; j < @Model.respuestas.Count; j++)
                         {
-                            @if (Model.respuestas[j].IdPregunta == Model.preguntas[i].IdPregunta)
+                            @if (Model.respuestas.ElementAt(j).IdPregunta == Model.preguntas.ElementAt(i).IdPregunta)
                             {
-                                @if (Model.preguntas[i].IdPregunta == 2)
+                                @if (Model.preguntas.ElementAt(i).IdPregunta == 2)
                                 {
                                     <td>
-                                        <input type="radio" name="respuestas[j].IdRespuesta" value="Entre 37º y 38º" /> Entre 37º y 38º<br>
-                                        <input type="radio" name="respuestas[j].IdRespuesta" value="> 38º" />> 38º<br>
-                                        <input type="radio" name="respuestas[j].IdRespuesta" value="No" />No
+
+                                        @Html.HiddenFor(m => @Model.respuestas[j].IdRespuesta)
+                                        Entre 37º y 38º
+                                        @Html.RadioButtonFor(m => @Model.respuestas[j].Respuesta, "Entre 37º y 38º")
+                                        <br>
+                                        > 38º
+                                        @Html.RadioButtonFor(m => @Model.respuestas[j].Respuesta, "> 38º")
+                                        <br>
+                                        No
+                                        @Html.RadioButtonFor(m => @Model.respuestas[j].Respuesta, "No")
+
+                                        <span asp-validation-for="@Model.respuestas[j].Respuesta" class="text-danger"></span>
                                     </td>
 
                                 }
                                 else
                                 {
                                     <td>
+                                        @Html.HiddenFor(m => @Model.respuestas[j].IdRespuesta)
+                                        No
+                                        @Html.RadioButtonFor(m => m.respuestas[j].Respuesta, "No")
+                                        <br>
+                                        Si
+                                        @Html.RadioButtonFor(m => m.respuestas[j].Respuesta, "Si")
 
-                                        <input type="checkbox" name="respuestas[j].IdRespuesta" value="Si" />
+                                        <span asp-validation-for="@Model.respuestas[j].Respuesta" class="text-danger"></span>
                                     </td>
                                 }
                             }

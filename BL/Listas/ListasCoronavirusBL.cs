@@ -16,5 +16,6 @@ namespace BL.Listas
             return dal.RecogerListadoCompletoPreguntas();
         }
 
+        
     }
 }
