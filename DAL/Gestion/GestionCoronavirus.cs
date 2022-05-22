@@ -18,7 +18,7 @@ namespace DAL.Gestion
         public int InsertarPersona(clsPersona persona)
         {
             int filasAfectadas = 0;
-            SqlCommand cmd = new SqlCommand();
+            SqlCommand cmd  = new SqlCommand();
             cmd.Parameters.AddWithValue("@dni", persona.DniPersona);
             cmd.Parameters.AddWithValue("@nombre", persona.NombrePersona);
             cmd.Parameters.AddWithValue("@apellidos", persona.ApellidosPersona);
