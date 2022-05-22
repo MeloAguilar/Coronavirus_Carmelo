@@ -52,7 +52,7 @@ namespace UI.Controllers
 
         public IActionResult Diagnostico(Index_VM vm)
         {
-            var result = View(vm);
+            var result = View(vm.usuario);
 
             try
             {
@@ -65,7 +65,7 @@ namespace UI.Controllers
             Diagnostico_VM vmD = new Diagnostico_VM();
             vmD.usuario = vm.usuario;
             vmD.respuestas = vm.respuestas;
-            return View(vmD);
+            return View(vmD.usuario);
         }
 
         [HttpPost]
