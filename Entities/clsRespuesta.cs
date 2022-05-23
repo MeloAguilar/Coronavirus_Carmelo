@@ -22,5 +22,14 @@ namespace Entities
         public clsRespuesta(int idPregunta) { IdPregunta = idPregunta; IdRespuesta = idPregunta; }
 
         public clsRespuesta() { }
+
+
+        public void establecerPosibleCaso()
+        {
+            if(!(this.Respuesta.Equals("No") || this.Respuesta.Equals("Entre 37º y 38º")))
+            {
+                this.PosibleCaso = true;
+            }
+        }
     }
 }

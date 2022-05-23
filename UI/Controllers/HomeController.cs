@@ -24,23 +24,20 @@ namespace UI.Controllers
         public IActionResult Index(Index_VM vm)
         {
             IActionResult result = null;
-            if (vm.respuestas[1].Respuesta == null)
+            foreach (var item in vm.respuestas)
             {
-                result = View(vm);
+                item.establecerPosibleCaso();
             }
-            else
-            {
                 try
                 {
                     vm.EstablecerEstadoPaciente();
 
-                    result = RedirectToAction("Diagnostico", vm);
+                    result = RedirectToAction("Diagnostico", vm.usuario);
                 }
                 catch (Exception e)
                 {
                     result = View("Error");
                 }
-            }
             return result;
         }
         public IActionResult Privacy()
@@ -50,22 +47,11 @@ namespace UI.Controllers
         }
 
 
-        public IActionResult Diagnostico(Index_VM vm)
+        public IActionResult Diagnostico(clsPersona p)
         {
-            var result = View(vm.usuario);
-
-            try
-            {
-                vm.usuario = new clsPersona();
-            }
-            catch (Exception e)
-            {
-                result = View("Error");
-            }
-            Diagnostico_VM vmD = new Diagnostico_VM();
-            vmD.usuario = vm.usuario;
-            vmD.respuestas = vm.respuestas;
-            return View(vmD.usuario);
+            Diagnostico_VM vm = new Diagnostico_VM();
+            vm.usuario = p;
+            return View(vm);
         }
 
         [HttpPost]
@@ -73,7 +59,7 @@ namespace UI.Controllers
         {
 
             int filas = 0;
-            var result = View(vm.usuario);
+            var result = View("FinTest");
             try
             {
                 filas = gestionBL.InsertarPersonaBL(vm.usuario);
@@ -94,7 +80,7 @@ namespace UI.Controllers
                 {
                     ViewBag.MensajePositivo = "Su Diagnostico es Positivo";
                     ViewBag.FinTest = "Para más información sobre como Operar llame a uno de los siguientes números 900 400 061 / 955 545 060";
-                    result = View("FinTest");
+                    
                 }
             }
             return result;

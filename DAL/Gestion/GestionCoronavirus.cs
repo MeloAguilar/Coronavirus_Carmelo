@@ -15,6 +15,23 @@ namespace DAL.Gestion
         private clsMyConnection miConexion = new clsMyConnection();
 
 
+
+        /// <summary>
+        ///  <header>InsertarPersona(clsPersona persona)</header>
+        /// </summary>
+        /// <pre>
+        /// El valor del atributo DniPersona del objeto clsPersona proporcionado
+        /// debe ser único. Es decir, no debe existir dentro de la base de datos
+        /// </pre>
+        /// 
+        /// <post>
+        /// Se insertará la persona en la base de datos mediante un query.
+        /// Devolverá 1 si ha sido introducida y 0 si no ha podido ser introducida
+        /// por fallos en la base de datos
+        /// </post>
+        /// <param name="persona"></param>
+        /// <returns>filasAfectadas: entero extraido de el conteo de filas afectadas en la base de datos
+        /// tras realizar la query</returns>
         public int InsertarPersona(clsPersona persona)
         {
             int filasAfectadas = 0;

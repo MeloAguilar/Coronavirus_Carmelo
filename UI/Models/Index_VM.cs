@@ -15,6 +15,7 @@ namespace UI.Models
 
         public Index_VM()
         {
+            usuario = new clsPersona();
             respuestas =new List<clsRespuesta>();
             preguntas = bl.RecogerListadoCompletoPreguntasBL();
             foreach(var pregunta in preguntas)
@@ -31,12 +32,12 @@ namespace UI.Models
             double maxVal = this.preguntas.Count * 0.7;
             foreach (var item in this.respuestas)
             {
-                if(!(item.Respuesta.Equals("No") ||  item.Respuesta.Equals("Entre 37º y 38º")))
+                if(item.PosibleCaso)
                 {
                     i++;
                 }
             }
-            if ((i / this.preguntas.Count) > maxVal)
+            if ((i) > maxVal)
             {
                 this.usuario.Diagnostico = true;
             }
