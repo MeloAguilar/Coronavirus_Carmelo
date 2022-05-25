@@ -82,6 +82,13 @@ namespace UI.Controllers
                     ViewBag.FinTest = "Para más información sobre como Operar llame a uno de los siguientes números 900 400 061 / 955 545 060";
                     
                 }
+                else if(!vm.usuario.Diagnostico)
+                {
+                    ViewBag.MensajePositivo = "Su Diagnostico es Negativo";
+                    ViewBag.FinTest = "Recuerde llevar la mascarilla en todo momento y mantener la distancia de segguridad..." +
+                        "Lo estamos haciendo genial.";
+
+                }
             }
             return result;
         }
