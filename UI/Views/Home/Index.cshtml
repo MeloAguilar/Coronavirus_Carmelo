@@ -19,49 +19,16 @@
 
 
 
-                @for (int i = 0; i < @Model.preguntas.Count; i++)
+                @for (int i = 0; i < @Model.preguntasConRespuestas.Count; i++)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(m => @Model.preguntas[i].Pregunta)
+                            @Html.DisplayFor(m => @Model.preguntasConRespuestas[i].pregunta)
                         </td>
                         @*//Todo Cambiar el ViewModel. Establecer todas las respuestas desde la base de datos*@
-                        @for (int j = 0; j < @Model.respuestas.Count; j++)
+                        @for (int j = 0; j < @Model.preguntasConRespuestas[i].respuestas.Count; j++)
                         {@*TODO     Cambiar todos los ifs por un for que recorrar *@
-                            @if (Model.respuestas.ElementAt(j).IdPregunta == Model.preguntas.ElementAt(i).IdPregunta)
-                            {
-                                @if (Model.preguntas.ElementAt(i).IdPregunta == 2)
-                                {
-                                    <td>
-
-                                        @Html.HiddenFor(m => @Model.respuestas[j].IdRespuesta)
-                                        Entre 37º y 38º
-                                        @Html.RadioButtonFor(m => @Model.respuestas[j].Respuesta, "Entre 37º y 38º")
-                                        <br>
-                                        > 38º
-                                        @Html.RadioButtonFor(m => @Model.respuestas[j].Respuesta, "> 38º")
-                                        <br>
-                                        No
-                                        @Html.RadioButtonFor(m => @Model.respuestas[j].Respuesta, "No")
-
-                                        <span asp-validation-for="@Model.respuestas[j].Respuesta" class="text-danger"></span>
-                                    </td>
-
-                                }
-                                else
-                                {
-                                    <td>
-                                        @Html.HiddenFor(m => @Model.respuestas[j].IdRespuesta)
-                                        No
-                                        @Html.RadioButtonFor(m => m.respuestas[j].Respuesta, "No")
-                                        <br>
-                                        Si
-                                        @Html.RadioButtonFor(m => m.respuestas[j].Respuesta, "Si")
-
-                                        <span asp-validation-for="@Model.respuestas[j].Respuesta" class="text-danger"></span>
-                                    </td>
-                                }
-                            }
+                           
 
                         }
                     </tr>

@@ -11,7 +11,7 @@ namespace UI.Models
         private List<clsRespuesta> respuestas;
 
 
-        private List<clsPreguntaConRespuestas> preguntasConRespuestas { get; set; }
+        public List<clsPreguntaConRespuestas> preguntasConRespuestas { get; set; }
 
         public Index_VM()
         {
