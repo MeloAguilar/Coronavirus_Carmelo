@@ -118,6 +118,56 @@ namespace DAL.Listas
             return preguntas;
         }
 
+
+
+        /// <summary>
+        /// <header>List-clsPregunta- RecogerListadoCompletoPreguntas() </header>
+        /// 
+        /// <pre>
+        ///  La base de datos Debe ser accesible
+        /// </pre>
+        /// 
+        /// <post>
+        /// Siempre devolverá el listado completo de preguntas qque se encuentran en la base de datos
+        /// </post>
+        /// </summary>
+        /// <returns></returns>
+        public List<clsRespuesta> RecogerListadoCompletoRespuestas()
+        {
+            List<clsRespuesta> respuestas = new List<clsRespuesta>();
+            SqlConnection cnn = null;
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader = null;
+            cmd.CommandText = "Select * From respuestas";
+            try
+            {
+                cnn = miConexion.getConnection();
+                cmd.Connection = cnn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    respuestas.Add(GenerarRespuesta(reader));
+                }
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                if (cnn != null)
+                    miConexion.closeConnection(ref cnn);
+                if (reader != null)
+                    reader.Close();
+            }
+
+            return respuestas;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -137,20 +187,23 @@ namespace DAL.Listas
             {
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "";
-
-
                 cmd.Parameters.AddWithValue("@id", idPregunta);
+                cmd.CommandText = "Select * From respuestas Where idPregunta = @id";
                 cnn = miConexion.getConnection();
 
+                reader = cmd.ExecuteReader();
+
+               
+               
+                while(reader.Read())
                 respuestas.Add(GenerarRespuesta(reader));
 
             }
             catch (Exception e)
             {
-
+                throw e;
             }
-
+            return respuestas;
         }
     }
 }

@@ -16,6 +16,15 @@ namespace BL.Listas
             return dal.RecogerListadoCompletoPreguntas();
         }
 
-        
+        public List<clsRespuesta> RecogerListadoCompletoRespuestasBL()
+        {
+            return dal.RecogerListadoCompletoRespuestas();
+        }
+
+
+        public List<clsRespuesta> ListadoDeRespuestasPorIdPreguntaBL(int id)
+        {
+            return dal.ListadoDeRespuestasPorIdPregunta(id);
+        }
     }
 }

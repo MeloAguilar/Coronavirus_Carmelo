@@ -49,6 +49,7 @@ namespace UI.Controllers
 
         public IActionResult Diagnostico(clsPersona p)
         {
+           
             Diagnostico_VM vm = new Diagnostico_VM();
             vm.usuario = p;
             return View(vm);

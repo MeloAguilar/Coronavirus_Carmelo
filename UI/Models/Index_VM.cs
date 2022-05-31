@@ -6,22 +6,32 @@ namespace UI.Models
     public class Index_VM
     {
         private ListasCoronavirusBL bl = new ListasCoronavirusBL();
-        public List<clsPregunta> preguntas { get; }
+        private List<clsPregunta> preguntas { get; }
 
-        public List<clsRespuesta> respuestas { get; set; }
+        private List<clsRespuesta> respuestas;
 
-        public clsPersona usuario { get; set; }
 
+        private List<clsPreguntaConRespuestas> preguntasConRespuestas { get; set; }
 
         public Index_VM()
         {
-            usuario = new clsPersona();
-            respuestas =new List<clsRespuesta>();
+            
+            respuestas = bl.RecogerListadoCompletoRespuestasBL();
             preguntas = bl.RecogerListadoCompletoPreguntasBL();
             foreach(var pregunta in preguntas)
             {
-                
-                respuestas.Add(new clsRespuesta(pregunta.IdPregunta));
+                foreach (var respuesta in respuestas)
+                {
+                    List<clsRespuesta> r =new List<clsRespuesta>();
+
+                    if(pregunta.IdPregunta == respuesta.IdPregunta)
+                    {
+                        r.Add(respuesta);
+                    }
+                    preguntasConRespuestas.Add(new clsPreguntaConRespuestas(pregunta, r));
+                }
+
+               
             }
         }
 
