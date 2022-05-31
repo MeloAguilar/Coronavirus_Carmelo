@@ -14,6 +14,10 @@ namespace DAL.Listas
         clsMyConnection miConexion = new clsMyConnection();
 
 
+        //TODO  crear metodo ListadoDeRespuestasPorIdPregunta(int idPregunta) : List<clsRespuesta>
+
+
+
         /// <summary>
         /// <header>clsPregunta GenerarPregunta(SqlDataReader reader)</header>
         /// 
@@ -38,6 +42,32 @@ namespace DAL.Listas
                 pregunta = new clsPregunta((int)reader["idPregunta"], (string)reader["pregunta"]);
             }
             return pregunta;
+        }
+
+        /// <summary>
+        /// <header>clsRespuesta GenerarRespuesta(SqlDataReader reader)</header>
+        /// 
+        /// Función que se encarga de extraer un objeto tipo clsPregunta de
+        /// la base de datos Coronavirus
+        /// <pre>
+        ///  reader debe contener los datos de un objeto clsPregunta que se encuentr dentro de la
+        ///  base de datos Coronavirus
+        /// </pre>
+        /// 
+        /// <post>
+        ///  Devolverá un objeto clsRespuesta instanciado y completo en caso de que la base de datos
+        ///  no dé problemas en la conexión
+        /// </post>
+        /// </summary>
+        /// <returns></returns>
+        private clsRespuesta GenerarRespuesta(SqlDataReader reader)
+        {
+            clsRespuesta respuesta = null;
+            if (reader.HasRows)
+            {
+                respuesta = new clsRespuesta((int)reader["idPregunta"], (int)reader["idRespuesta"], (string)reader["respuesta"], (bool)reader["posibleCaso"]);
+            }
+            return respuesta;
         }
 
 
@@ -86,6 +116,41 @@ namespace DAL.Listas
             }
 
             return preguntas;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idPregunta"></param>
+        public List<clsRespuesta> ListadoDeRespuestasPorIdPregunta(int idPregunta)
+        {
+            List<clsRespuesta> respuestas = new List<clsRespuesta>();
+
+            SqlConnection cnn = null;
+
+
+            SqlDataReader reader = null;
+
+
+
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "";
+
+
+                cmd.Parameters.AddWithValue("@id", idPregunta);
+                cnn = miConexion.getConnection();
+
+                respuestas.Add(GenerarRespuesta(reader));
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
         }
     }
 }

@@ -25,8 +25,9 @@
                         <td>
                             @Html.DisplayFor(m => @Model.preguntas[i].Pregunta)
                         </td>
+                        @*//Todo Cambiar el ViewModel. Establecer todas las respuestas desde la base de datos*@
                         @for (int j = 0; j < @Model.respuestas.Count; j++)
-                        {
+                        {@*TODO     Cambiar todos los ifs por un for que recorrar *@
                             @if (Model.respuestas.ElementAt(j).IdPregunta == Model.preguntas.ElementAt(i).IdPregunta)
                             {
                                 @if (Model.preguntas.ElementAt(i).IdPregunta == 2)

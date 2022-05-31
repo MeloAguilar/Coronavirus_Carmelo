@@ -24,12 +24,12 @@ namespace Entities
         public clsRespuesta() { }
 
 
-        public void establecerPosibleCaso()
+        public clsRespuesta(int idPregunta, int idRespuesta, string respuesta, bool posibleCaso)
         {
-            if(!(this.Respuesta.Equals("No") || this.Respuesta.Equals("Entre 37º y 38º")))
-            {
-                this.PosibleCaso = true;
-            }
+            IdPregunta = idPregunta;
+            Respuesta = respuesta;
+            PosibleCaso = posibleCaso;
+            IdRespuesta = idRespuesta;
         }
     }
 }
