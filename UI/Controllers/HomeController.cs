@@ -15,7 +15,6 @@ namespace UI.Controllers
         public IActionResult Index()
         {
             Index_VM vm = new Index_VM();
-            vm.usuario = new clsPersona();
             return View(vm);
         }
 
@@ -24,15 +23,16 @@ namespace UI.Controllers
         public IActionResult Index(Index_VM vm)
         {
             IActionResult result = null;
-            foreach (var item in vm.respuestas)
-            {
-                item.establecerPosibleCaso();
-            }
                 try
                 {
-                    vm.EstablecerEstadoPaciente();
+                    clsPersona usuario = new clsPersona();
 
-                    result = RedirectToAction("Diagnostico", vm.usuario);
+                foreach (var preguntas in vm.preguntasConRespuestas)
+                {
+                    
+                }
+
+                    result = RedirectToAction("Diagnostico", usuario);
                 }
                 catch (Exception e)
                 {
@@ -49,7 +49,22 @@ namespace UI.Controllers
 
         public IActionResult Diagnostico(clsPersona p)
         {
-           
+       
+                int i = 0;
+                double maxVal = this.preguntas.Count * 0.7;
+                foreach (var item in this.respuestas)
+                {
+                    if (item.PosibleCaso)
+                    {
+                        i++;
+                    }
+                }
+                if ((i) > maxVal)
+                {
+                    p.Diagnostico = true;
+                }
+    
+            
             Diagnostico_VM vm = new Diagnostico_VM();
             vm.usuario = p;
             return View(vm);

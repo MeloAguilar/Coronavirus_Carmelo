@@ -36,22 +36,6 @@ namespace UI.Models
         }
 
 
-        public int EstablecerEstadoPaciente()
-        {
-            int i = 0;
-            double maxVal = this.preguntas.Count * 0.7;
-            foreach (var item in this.respuestas)
-            {
-                if(item.PosibleCaso)
-                {
-                    i++;
-                }
-            }
-            if ((i) > maxVal)
-            {
-                this.usuario.Diagnostico = true;
-            }
-            return i;
-        }
+
     }
 }

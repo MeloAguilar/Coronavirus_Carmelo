@@ -28,7 +28,7 @@
                         @*//Todo Cambiar el ViewModel. Establecer todas las respuestas desde la base de datos*@
                         @for (int j = 0; j < @Model.preguntasConRespuestas[i].respuestas.Count; j++)
                         {@*TODO     Cambiar todos los ifs por un for que recorrar *@
-                           
+                           @Html.RadioButtonFor(@Model.preguntasConRespuestas[i].respuestas[j].Respuesta, @Model.preguntasConRespuestas[i].respuestas[j].PosibleCaso)
 
                         }
                     </tr>
