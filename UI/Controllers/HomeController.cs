@@ -23,21 +23,40 @@ namespace UI.Controllers
         public IActionResult Index(Index_VM vm)
         {
             IActionResult result = null;
-                try
-                {
-                    clsPersona usuario = new clsPersona();
-
+            try
+            {
+                clsPersona usuario = new clsPersona();
+                usuario.Diagnostico = false;
+                int conteoPositivos = 0;
                 foreach (var preguntas in vm.preguntasConRespuestas)
                 {
-                    
+                    foreach (var respuesta in preguntas.respuestas)
+                    {
+                        for (int i = 0; i < vm.respuestas.Count(); i++)
+                        {
+                            if (vm.respuestas.ElementAt(i).IdRespuesta == respuesta.IdRespuesta)
+                            {
+                                if (respuesta.PosibleCaso)
+                                {
+                                    conteoPositivos++;
+                                }
+                            }
+                        }
+
+                    }
                 }
 
-                    result = RedirectToAction("Diagnostico", usuario);
-                }
-                catch (Exception e)
+                if (conteoPositivos >= (vm.preguntas.Count*0.7))
                 {
-                    result = View("Error");
+                    usuario.Diagnostico = true;
                 }
+
+                result = RedirectToAction("Diagnostico", usuario.Diagnostico);
+            }
+            catch (Exception e)
+            {
+                result = View("Error");
+            }
             return result;
         }
         public IActionResult Privacy()
@@ -47,38 +66,23 @@ namespace UI.Controllers
         }
 
 
-        public IActionResult Diagnostico(clsPersona p)
+        public IActionResult Diagnostico(bool diagnostico)
         {
-       
-                int i = 0;
-                double maxVal = this.preguntas.Count * 0.7;
-                foreach (var item in this.respuestas)
-                {
-                    if (item.PosibleCaso)
-                    {
-                        i++;
-                    }
-                }
-                if ((i) > maxVal)
-                {
-                    p.Diagnostico = true;
-                }
-    
-            
-            Diagnostico_VM vm = new Diagnostico_VM();
-            vm.usuario = p;
-            return View(vm);
+
+            clsPersona usuario = new clsPersona();
+            usuario.Diagnostico = diagnostico;
+            return View(usuario);
         }
 
         [HttpPost]
-        public IActionResult Diagnostico(Diagnostico_VM vm)
+        public IActionResult Diagnostico(clsPersona usuario)
         {
 
             int filas = 0;
             var result = View("FinTest");
             try
             {
-                filas = gestionBL.InsertarPersonaBL(vm.usuario);
+                filas = gestionBL.InsertarPersonaBL(usuario);
             }
             catch (Exception e)
             {
@@ -92,13 +96,13 @@ namespace UI.Controllers
                     ViewBag.Error = "Sus datos no se pudieron introducir en nuestra base de datos.";
                     result = View("Error");
                 }
-                else if (vm.usuario.Diagnostico)
+                else if (usuario.Diagnostico)
                 {
                     ViewBag.MensajePositivo = "Su Diagnostico es Positivo";
                     ViewBag.FinTest = "Para más información sobre como Operar llame a uno de los siguientes números 900 400 061 / 955 545 060";
-                    
+
                 }
-                else if(!vm.usuario.Diagnostico)
+                else if (!usuario.Diagnostico)
                 {
                     ViewBag.MensajePositivo = "Su Diagnostico es Negativo";
                     ViewBag.FinTest = "Recuerde llevar la mascarilla en todo momento y mantener la distancia de segguridad..." +

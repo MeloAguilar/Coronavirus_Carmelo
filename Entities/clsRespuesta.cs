@@ -16,7 +16,7 @@ namespace Entities
 
         [Required(ErrorMessage = "Es necesario responder todas las preguntas")]
         public string Respuesta { get; set; }
-
+        [Required(ErrorMessage = "Es necesario responder a todas las preguntas")]
         public bool PosibleCaso { get; set; }
 
         public clsRespuesta(int idPregunta) { IdPregunta = idPregunta; IdRespuesta = idPregunta; }

@@ -14,5 +14,13 @@ namespace UI.Models
             respuestas = r;
         }
 
+        public clsPreguntaConRespuestas(clsPregunta p)
+        {
+            pregunta = p;
+            respuestas = new List<clsRespuesta>();
+        }
+
+        public clsPreguntaConRespuestas() { }
+
     }
 }

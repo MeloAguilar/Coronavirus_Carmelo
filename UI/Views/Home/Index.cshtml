@@ -18,23 +18,29 @@
             <tbody>
 
 
+                @{
+                    for (int i = 0; i < @Model.preguntas.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => @Model.preguntas[i].Pregunta)
+                            </td>
+                            <td>
+                                @*//Todo Cambiar el ViewModel. Establecer todas las respuestas desde la base de datos*@
+                                @for (int j = 0; j < @Model.preguntasConRespuestas[i].respuestas.Count; j++)
+                                {@*TODO     Cambiar todos los ifs por un for que recorrar *@
 
-                @for (int i = 0; i < @Model.preguntasConRespuestas.Count; i++)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(m => @Model.preguntasConRespuestas[i].pregunta)
-                        </td>
-                        @*//Todo Cambiar el ViewModel. Establecer todas las respuestas desde la base de datos*@
-                        @for (int j = 0; j < @Model.preguntasConRespuestas[i].respuestas.Count; j++)
-                        {@*TODO     Cambiar todos los ifs por un for que recorrar *@
-                           @Html.RadioButtonFor(@Model.preguntasConRespuestas[i].respuestas[j].Respuesta, @Model.preguntasConRespuestas[i].respuestas[j].PosibleCaso)
 
-                        }
-                    </tr>
+                                    //<input type="radio" name=" @Model.preguntasConRespuestas[i].respuestas[j].Respuesta" value="@Model.preguntasConRespuestas[i].respuestas[j].PosibleCaso.ToString()">
+                                    @Html.RadioButtonFor(m => Model.preguntasConRespuestas[i].respuestas[j].IdRespuesta, @Model.preguntasConRespuestas[i].respuestas[j].Respuesta)
+                                    @Html.DisplayFor(m => Model.preguntasConRespuestas[i].respuestas[j].Respuesta)
+                                    <br />
+                                }
+                            </td>
+                        </tr>
+                    }
+
                 }
-
-
 
 
             </tbody>
