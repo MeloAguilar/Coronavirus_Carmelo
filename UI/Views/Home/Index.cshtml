@@ -38,6 +38,7 @@
                                     {
                                         
                                         @Html.RadioButtonFor(m => m.PreguntasConRespuesta[i].PosibleCaso, @Model.respuestas[j].PosibleCaso)
+                                        <span asp-validation-for="@Model.PreguntasConRespuesta[i].PosibleCaso" class="text-danger"></span>
                                         @Html.DisplayFor(m => m.respuestas[j].Respuesta)
 
                                         <br />
