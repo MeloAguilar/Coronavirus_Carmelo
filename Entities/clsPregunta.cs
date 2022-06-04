@@ -18,5 +18,6 @@ namespace Entities
             IdPregunta = id;
             Pregunta = pregunta;
         }
+        public clsPregunta() { }
     }
 }

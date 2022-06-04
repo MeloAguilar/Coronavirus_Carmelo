@@ -2,8 +2,9 @@
 using BL.Listas;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
-using UI.Models;
+using UI.Models.ViewModels;
 
 namespace UI.Controllers
 {
@@ -15,6 +16,7 @@ namespace UI.Controllers
         public IActionResult Index()
         {
             Index_VM vm = new Index_VM();
+
             return View(vm);
         }
 
@@ -28,25 +30,18 @@ namespace UI.Controllers
                 clsPersona usuario = new clsPersona();
                 usuario.Diagnostico = false;
                 int conteoPositivos = 0;
-                foreach (var preguntas in vm.preguntasConRespuestas)
+                foreach (var pregunta in vm.PreguntasConRespuesta)
                 {
-                    foreach (var respuesta in preguntas.respuestas)
+
+                    if ((bool)pregunta.PosibleCaso)
                     {
-                        for (int i = 0; i < vm.respuestas.Count(); i++)
-                        {
-                            if (vm.respuestas.ElementAt(i).IdRespuesta == respuesta.IdRespuesta)
-                            {
-                                if (respuesta.PosibleCaso)
-                                {
-                                    conteoPositivos++;
-                                }
-                            }
-                        }
+
+                        conteoPositivos++;
 
                     }
                 }
 
-                if (conteoPositivos >= (vm.preguntas.Count*0.7))
+                if (conteoPositivos >= (vm.PreguntasConRespuesta.Count*0.7))
                 {
                     usuario.Diagnostico = true;
                 }
@@ -79,7 +74,7 @@ namespace UI.Controllers
         {
 
             int filas = 0;
-            var result = View("FinTest");
+            var result = View(usuario);
             try
             {
                 filas = gestionBL.InsertarPersonaBL(usuario);

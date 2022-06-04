@@ -190,7 +190,7 @@ namespace DAL.Listas
                 cmd.Parameters.AddWithValue("@id", idPregunta);
                 cmd.CommandText = "Select * From respuestas Where idPregunta = @id";
                 cnn = miConexion.getConnection();
-
+                cmd.Connection = cnn;
                 reader = cmd.ExecuteReader();
 
                

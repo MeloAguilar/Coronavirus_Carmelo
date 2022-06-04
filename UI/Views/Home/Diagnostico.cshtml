@@ -3,10 +3,21 @@
 @{
     ViewData["Title"] = "Diagnostico";
 }
+@if (@ViewBag.MensajePositivo != null)
+{
+    <h5 style=" color: red">@ViewBag.MensajePositivo</h5>
+    <h6>@ViewBag.FinTest</h6>
+}
+else if (@ViewBag.MenjaseNegativo != null)
+{
+    <h5 style=" color: green">@ViewBag.MensajeNegativo</h5>
+    <h6>@ViewBag.FinTest</h6>
+}
+else
+{
+    <h4>Inserte sus datos para Poder mostrar el Resultado</h4>
 
-<h1>Diagnostico</h1>
 
-<h4>clsPersona</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -44,4 +55,5 @@
         </form>
     </div>
 </div>
+}
 
